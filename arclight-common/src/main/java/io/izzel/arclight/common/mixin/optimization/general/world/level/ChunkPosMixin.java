@@ -13,7 +13,9 @@ public class ChunkPosMixin {
     public int z;
 
     @Unique
-    private Long arclight$cachedToLong;
+    private long arclight$cachedToLong;
+    @Unique
+    private boolean arclight$cached;
 
     /**
      * @author Goodvise
@@ -21,8 +23,9 @@ public class ChunkPosMixin {
      */
     @Overwrite
     public long toLong() {
-        if (arclight$cachedToLong == null) {
+        if (!arclight$cached) {
             arclight$cachedToLong = ChunkPos.asLong(x, z);
+            arclight$cached = true;
         }
 
         return arclight$cachedToLong;
